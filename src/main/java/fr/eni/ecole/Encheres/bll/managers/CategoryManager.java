@@ -1,0 +1,14 @@
+package fr.eni.ecole.Encheres.bll.managers;
+
+import java.util.List;
+
+import fr.eni.ecole.Encheres.modeles.bll.bo.Category;
+
+public interface CategoryManager {
+
+	List <Category> findAll();
+	Category findByLabel(String label);
+}
+
+
+

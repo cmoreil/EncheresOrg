@@ -17,7 +17,7 @@ public class Article {
 	private AuctionStatus auctionStatus;
 	
 	public Article() {
-		//this.id = 0;
+		this.id = 0;
 	}
 	
 	public Article(String name, String description, LocalDate auctionStartDate,
@@ -33,7 +33,20 @@ public class Article {
 		this.user = user;
 		
 	}
-
+	
+	public Article(String name, String description, LocalDate auctionStartDate,
+			LocalDate auctionEndDate, Integer initialPrice, Category category, User user) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.auctionStartDate = auctionStartDate;
+		this.auctionEndDate = auctionEndDate;
+		this.initialPrice = initialPrice;
+		this.category = category;
+		this.user = user;
+		
+	}
+	
 	public Article(String name, String description, LocalDate auctionStartDate,
 			LocalDate auctionEndDate, Integer initialPrice, Integer sellPrice, Category category, User user,
 			AuctionStatus auctionStatus) {

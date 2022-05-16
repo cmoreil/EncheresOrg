@@ -22,14 +22,19 @@ public class ArticleManagerImpl implements ArticleManager {
 
 	@Override
 	public Article save(Article article) {
+		article.setSellPrice(article.getInitialPrice());		
 		article.setAuctionStatus(AuctionStatus.PENDING);
-		articleDao.save(article);
-		return article;
+		return articleDao.save(article);
 	}
 
 	@Override
 	public Article findById(Integer id) {
 		return articleDao.findById(id);
+	}
+
+	@Override
+	public Integer selectLastId() {
+		return articleDao.selectLastId();
 	}
 	
 }

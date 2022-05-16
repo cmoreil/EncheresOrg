@@ -6,4 +6,5 @@ public interface ArticleManager {
 
 	Article save(Article article);
 	Article findById(Integer id);
+	Integer selectLastId();
 }

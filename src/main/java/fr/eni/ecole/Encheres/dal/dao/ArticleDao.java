@@ -6,5 +6,6 @@ public interface ArticleDao {
 
 	Article save(Article article);
 	Article findById(Integer id);
+	Integer selectLastId();
 	
 }

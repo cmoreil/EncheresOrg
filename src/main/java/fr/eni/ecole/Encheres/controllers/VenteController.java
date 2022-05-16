@@ -43,13 +43,11 @@ public class VenteController extends HttpServlet {
 		String street = req.getParameter("street");
 		String postalCode = req.getParameter("postalCode");
 		String city = req.getParameter("city");
-		Integer sellPrice =Integer.valueOf(req.getParameter("initialPrice"));
 		
 		Map<String, String> SellsErrors = venteManager.check(name,description, categoryLabel, initialPrice,
 				auctionStartDate,auctionEndDate, street, postalCode,city);
 		
 		if (SellsErrors.isEmpty()) {
-		
 		//récupération et construct des objets à envoyer pour créer un article
 		Category categoryAVendre = categoryManager.findByLabel(categoryLabel);
 		
@@ -58,13 +56,11 @@ public class VenteController extends HttpServlet {
 				(User) req.getSession().getAttribute("userConnected");
 	
 		//récupération et construct des objets à envoyer pour créer un article
-		Article article = new Article(name, description, auctionStartDate, auctionEndDate, initialPrice, sellPrice, categoryAVendre, utilisateurConnecte);
-		article.setCategory(categoryAVendre);
-		article.setUser(utilisateurConnecte);
+		Article article = new Article(name, description, auctionStartDate, auctionEndDate, initialPrice, categoryAVendre, utilisateurConnecte);
 		Article articleAVendre = articleManager.save(article);
 		req.setAttribute("articleAVendre", articleAVendre);
 		
-		//r�cup�ration et construct des objets � envoyer pour cr�er une adresse de retrait
+		//récupération et construct des objets à envoyer pour créer une adresse de retrait
 		Dispatch dispatchCree = new Dispatch(articleAVendre, street, postalCode, city);
 		dispatchManager.save(dispatchCree);
 		req.setAttribute("dispatchCree", dispatchCree);

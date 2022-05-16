@@ -23,7 +23,7 @@ public class User {
 
 	public User(String username, String name, String firstname, String email, String phone, String street,
 			String postalCode, String city, String password, String confirmPassword) {
-		this();
+		super();
 		this.username = username;
 		setName(name);
 		this.firstname = firstname;

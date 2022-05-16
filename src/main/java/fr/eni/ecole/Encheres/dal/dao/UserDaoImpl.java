@@ -118,7 +118,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 				user.setCity(rs.getString("ville"));
 				user.setPassword(password);
 				user.setCredit(rs.getInt("credit"));
-				user.setRole(Role.valueOf(rs.getString("user_role")));
+				user.setRole(Role.valueOf(rs.getString("role")));
 			}
 
 		} catch (Exception e) {

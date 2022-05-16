@@ -42,15 +42,32 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
+			if(rs.next()) {
 			    generatedKey = rs.getInt(1);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		article.setId(generatedKey);
 		return article;
+	}
+	
+	public Integer selectLastId() {
+		Integer id = 0;
+		try (Connection con = PoolConnexion.getConnexion(database)) {
+			final String QUERY = "SELECT MAX(no_article) FROM ARTICLES_VENDUS";
+			PreparedStatement pstmt = con.prepareStatement(QUERY);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 
 	@Override

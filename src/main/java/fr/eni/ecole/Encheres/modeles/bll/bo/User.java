@@ -2,8 +2,7 @@ package fr.eni.ecole.Encheres.modeles.bll.bo;
 
 public class User {
 
-	final Integer CREDIT_OF_CREATION = 100;
-
+	private final Integer CREDIT_OF_CREATION = 100;
 	private Integer id;
 	private String username;
 	private String name;
@@ -24,40 +23,36 @@ public class User {
 
 	public User(String username, String name, String firstname, String email, String phone, String street,
 			String postalCode, String city, String password, String confirmPassword) {
-		super();
+		this();
 		this.username = username;
-		this.name = name.toUpperCase();
+		setName(name);
 		this.firstname = firstname;
 		this.email = email;
 		this.phone = phone;
 		this.street = street;
 		this.postalCode = postalCode;
-		this.city = city.toUpperCase();
+		setCity(city);
 		this.password = password;
 		this.confirmPassword = confirmPassword;
-		this.credit = CREDIT_OF_CREATION;
-		this.role = Role.USER;
+		setCredit(credit);
+		setRole(role);
 	}
 
-	public User(Integer id, String street, String postalCode, String city) {
+	public User(Integer id, String username, String name, String firstname, String email, String phone, String street,
+			String postalCode, String city, String password, Integer credit, Role role) {
 		super();
 		this.id = id;
+		this.username = username;
+		this.name = name;
+		this.firstname = firstname;
+		this.email = email;
+		this.phone = phone;
 		this.street = street;
 		this.postalCode = postalCode;
 		this.city = city;
-	}
-
-	public User(String username, String name, String firstname, String email, String phone, String street,
-			String postalCode, String city, String password) {
-		this.username = username;
-		this.name = name.toUpperCase();
-		this.firstname = firstname;
-		this.email = email;
-		this.phone = phone;
-		this.street = street;
-		this.postalCode = postalCode;
-		this.city = city.toUpperCase();
 		this.password = password;
+		this.credit = credit;
+		this.role = role;
 	}
 
 	public String getUsername() {
@@ -73,7 +68,7 @@ public class User {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.toUpperCase();
 	}
 
 	public String getFirstname() {
@@ -121,7 +116,7 @@ public class User {
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.city = city.toUpperCase();
 	}
 
 	public String getPassword() {
@@ -145,7 +140,7 @@ public class User {
 	}
 
 	public void setCredit(Integer credit) {
-		this.credit = credit;
+		this.credit = CREDIT_OF_CREATION;
 	}
 
 	public Role getRole() {
@@ -153,7 +148,7 @@ public class User {
 	}
 
 	public void setRole(Role role) {
-		this.role = role;
+		this.role = Role.USER;
 	}
 
 	public Integer getId() {

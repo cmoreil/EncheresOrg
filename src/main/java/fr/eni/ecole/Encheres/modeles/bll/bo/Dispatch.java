@@ -4,19 +4,19 @@ public class Dispatch {
 
 	private Article article;
 	private String street;
-	private String city;
 	private String postalCode;
-
+	private String city;
+	
 	public Dispatch() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Dispatch(Article article, String street, String city, String postalCode) {
+	public Dispatch(Article article, String street, String postalCode, String city) {
 		super();
 		this.article = article;
 		this.street = street;
-		this.city = city;
 		this.postalCode = postalCode;
+		this.city = city;
 	}
 
 	public Article getArticle() {

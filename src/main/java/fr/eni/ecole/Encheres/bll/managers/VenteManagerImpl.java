@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import fr.eni.ecole.Encheres.controllers.VenteManager;
 import fr.eni.ecole.Encheres.modeles.bll.bo.AuctionStatus;
 
 public class VenteManagerImpl implements VenteManager{
@@ -25,11 +24,11 @@ public class VenteManagerImpl implements VenteManager{
 	
 	@Override
 	public Map<String, String> check(String name, String description, String categoryLabel, Integer initialPrice,
-			LocalDate auctionStartDate, LocalDate auctionEndDate, String street, String postalCode, String city, AuctionStatus etatPourCetteVente) {
+			LocalDate auctionStartDate, LocalDate auctionEndDate, String street, String postalCode, String city) {
 
 		SellsErrors.clear();
 		
-		String regex = "^[a-zA-Z-|\s.?!,;]*$";
+		String regex = "^[a-zA-Z|\s.?!,;]*$";
 		String regex2 = "^[a-zA-Z0-9_-|\s.?!,;]*$";
 		Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 		Pattern pattern2 = Pattern.compile(regex2, Pattern.MULTILINE);

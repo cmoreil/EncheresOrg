@@ -45,9 +45,9 @@ public class InscriptionController extends HttpServlet {
 		//si pas d'erreur alors on atteint la page accueil en tant que co sinon cf. messages erreurs
 		if (errors.isEmpty()) {
 			if(!email.equals(userCo.getEmail()) && !username.equals(userCo.getUsername())) {
-				User userConnected = new User(username, name, firstname,email, phone, street, 
+				User user = new User(username, name, firstname,email, phone, street, 
 						postalCode, city, password, confirmPassword);
-				userManager.save(userConnected);
+				User userConnected = userManager.save(user);
 				req.getSession().setAttribute("userConnected", userConnected);
 				//revoir l'envoi vers index car la page d'accueil augmente une fois la co établie
 				this.getServletContext().getRequestDispatcher("/jsp/index.jsp").forward(req, resp);

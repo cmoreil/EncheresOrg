@@ -1,7 +1,5 @@
 package fr.eni.ecole.Encheres.bll.managers;
 
-import fr.eni.ecole.Encheres.controllers.VenteManager;
-
 public abstract class ManagerFactory {
 
 	public static UserManager getUserManager() {

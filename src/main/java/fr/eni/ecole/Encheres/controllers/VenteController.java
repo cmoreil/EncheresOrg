@@ -8,8 +8,8 @@ import fr.eni.ecole.Encheres.bll.managers.ArticleManager;
 import fr.eni.ecole.Encheres.bll.managers.CategoryManager;
 import fr.eni.ecole.Encheres.bll.managers.DispatchManager;
 import fr.eni.ecole.Encheres.bll.managers.ManagerFactory;
+import fr.eni.ecole.Encheres.bll.managers.VenteManager;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Article;
-import fr.eni.ecole.Encheres.modeles.bll.bo.AuctionStatus;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Category;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Dispatch;
 import fr.eni.ecole.Encheres.modeles.bll.bo.User;
@@ -44,30 +44,28 @@ public class VenteController extends HttpServlet {
 		String postalCode = req.getParameter("postalCode");
 		String city = req.getParameter("city");
 		Integer sellPrice =Integer.valueOf(req.getParameter("initialPrice"));
-		AuctionStatus etatPourCetteVente = AuctionStatus.PENDING;
 		
 		Map<String, String> SellsErrors = venteManager.check(name,description, categoryLabel, initialPrice,
-				auctionStartDate,auctionEndDate, street, postalCode,city, etatPourCetteVente);
+				auctionStartDate,auctionEndDate, street, postalCode,city);
 		
 		if (SellsErrors.isEmpty()) {
 		
-		//récupération et construct des objets à envoyer pour créer un article
+		//rÃ©cupÃ©ration et construct des objets Ã  envoyer pour crÃ©er un article
 		Category categoryAVendre = categoryManager.findByLabel(categoryLabel);
 		
-		//récupération et construct des objets à envoyer pour créer un article
+		//rÃ©cupÃ©ration et construct des objets Ã  envoyer pour crÃ©er un article
 		User utilisateurConnecte = 
 				(User) req.getSession().getAttribute("userConnected");
 	
-		//récupération et construct des objets à envoyer pour créer un article
-		Article articleAVendre = new Article(name, description, auctionStartDate, auctionEndDate, initialPrice, sellPrice, categoryAVendre, utilisateurConnecte, etatPourCetteVente);
-		articleAVendre.setCategory(categoryAVendre);
-		articleAVendre.setUser(utilisateurConnecte);
-		articleManager.save(articleAVendre);
+		//rÃ©cupÃ©ration et construct des objets Ã  envoyer pour crÃ©er un article
+		Article article = new Article(name, description, auctionStartDate, auctionEndDate, initialPrice, sellPrice, categoryAVendre, utilisateurConnecte);
+		article.setCategory(categoryAVendre);
+		article.setUser(utilisateurConnecte);
+		Article articleAVendre = articleManager.save(article);
 		req.setAttribute("articleAVendre", articleAVendre);
 		
-		//récupération et construct des objets à envoyer pour créer une adresse de retrait
+		//rï¿½cupï¿½ration et construct des objets ï¿½ envoyer pour crï¿½er une adresse de retrait
 		Dispatch dispatchCree = new Dispatch(articleAVendre, street, postalCode, city);
-		System.out.println(dispatchCree);
 		dispatchManager.save(dispatchCree);
 		req.setAttribute("dispatchCree", dispatchCree);
 		
@@ -76,6 +74,5 @@ public class VenteController extends HttpServlet {
 			req.setAttribute("SellsErrors", SellsErrors);
 			this.getServletContext().getRequestDispatcher("/jsp/vente.jsp").forward(req, resp);
 		}
-		
 	}
 }

@@ -12,12 +12,26 @@ public class Article {
 	private LocalDate auctionEndDate;
 	private Integer initialPrice; 
 	private Integer sellPrice;
-	private Category category;
 	private User user;
+	private Category category;
 	private AuctionStatus auctionStatus;
 	
 	public Article() {
-		this.id = 0;
+		//this.id = 0;
+	}
+	
+	public Article(String name, String description, LocalDate auctionStartDate,
+			LocalDate auctionEndDate, Integer initialPrice, Integer sellPrice, Category category, User user) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.auctionStartDate = auctionStartDate;
+		this.auctionEndDate = auctionEndDate;
+		this.initialPrice = initialPrice;
+		this.sellPrice = sellPrice;
+		this.category = category;
+		this.user = user;
+		
 	}
 
 	public Article(String name, String description, LocalDate auctionStartDate,

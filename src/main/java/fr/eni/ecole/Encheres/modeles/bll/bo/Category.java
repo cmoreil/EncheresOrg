@@ -10,7 +10,7 @@ public class Category {
 
 	public Category(String label) {
 		super();
-		this.label = label.toUpperCase();
+		setLabel(label);
 	}
 
 	public void setId(Integer id) {
@@ -22,7 +22,7 @@ public class Category {
 	}
 
 	public void setLabel(String label) {
-		this.label = label;
+		this.label = label.toUpperCase();
 	}
 
 

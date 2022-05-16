@@ -34,7 +34,7 @@ public class MonProfilController extends HttpServlet {
 		String city = req.getParameter("city");
 		String password = req.getParameter("password");
 
-		User utilisateurAModifier = new User(username, name, firstname, email, phone, street, postalCode, city,
+		/*User utilisateurAModifier = new User(username, name, firstname, email, phone, street, postalCode, city,
 				password);
 		User userCo = (User) req.getSession().getAttribute("user");
 		System.out.println(userCo);
@@ -47,7 +47,7 @@ public class MonProfilController extends HttpServlet {
 
 		this.getServletContext().getRequestDispatcher("/jsp/monProfil.jsp").forward(req, resp);
 
-		System.out.println(userCo);
+		System.out.println(userCo);*/
 	}
 	
 

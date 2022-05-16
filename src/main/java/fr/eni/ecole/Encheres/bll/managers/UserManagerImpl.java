@@ -8,6 +8,7 @@ import java.util.Map;
 
 import fr.eni.ecole.Encheres.dal.dao.DAOFactory;
 import fr.eni.ecole.Encheres.dal.dao.UserDao;
+import fr.eni.ecole.Encheres.modeles.bll.bo.Role;
 import fr.eni.ecole.Encheres.modeles.bll.bo.User;
 
 public class UserManagerImpl implements UserManager {
@@ -41,6 +42,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public User save(User user) {
+		//cryptage mdp
 		String password = user.getPassword();
 		String cryptedPasswd = cryptedPsswd(password);
 		user.setPassword(cryptedPasswd);

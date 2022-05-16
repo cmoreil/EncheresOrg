@@ -3,6 +3,7 @@ package fr.eni.ecole.Encheres.bll.managers;
 import fr.eni.ecole.Encheres.dal.dao.ArticleDao;
 import fr.eni.ecole.Encheres.dal.dao.DAOFactory;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Article;
+import fr.eni.ecole.Encheres.modeles.bll.bo.AuctionStatus;
 
 public class ArticleManagerImpl implements ArticleManager {
 
@@ -21,6 +22,7 @@ public class ArticleManagerImpl implements ArticleManager {
 
 	@Override
 	public Article save(Article article) {
+		article.setAuctionStatus(AuctionStatus.PENDING);
 		articleDao.save(article);
 		return article;
 	}

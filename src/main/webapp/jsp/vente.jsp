@@ -19,6 +19,7 @@
 		<textarea id="description" name="description" rows="20"></textarea> <span class="error">${SellsErrors.description}</span> <span class="error">${SellsErrors.description2}</span>
 		<label for="categoryLabel">Catégorie :</label> 
 		<select name="categoryLabel" id="categoryLabel">
+			<option value="toutes">TOUTES</option>
 			<c:forEach items="${ categories }" var="category" varStatus="status">
 				<option value="${ category.label }"> ${category.label}</option>
 			</c:forEach>

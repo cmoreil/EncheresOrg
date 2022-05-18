@@ -1,7 +1,6 @@
 package fr.eni.ecole.Encheres.modeles.bll.bo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Article {
 
@@ -14,7 +13,7 @@ public class Article {
 	private Integer sellPrice;
 	private User user;
 	private Category category;
-	private AuctionStatus auctionStatus;
+	private SellStatus sellStatus;
 	
 	public Article() {
 		this.id = 0;
@@ -49,7 +48,7 @@ public class Article {
 	
 	public Article(String name, String description, LocalDate auctionStartDate,
 			LocalDate auctionEndDate, Integer initialPrice, Integer sellPrice, Category category, User user,
-			AuctionStatus auctionStatus) {
+			SellStatus sellStatus) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -59,11 +58,11 @@ public class Article {
 		this.sellPrice = sellPrice;
 		this.category = category;
 		this.user = user;
-		this.auctionStatus = auctionStatus;
+		this.sellStatus = sellStatus;
 	}
 
 	public Article(Integer id, String name, String description, LocalDate auctionStartDate, LocalDate auctionEndDate,
-			Integer initialPrice, Integer sellPrice, Category category, User user, AuctionStatus auctionStatus) {
+			Integer initialPrice, Integer sellPrice, Category category, User user, SellStatus sellStatus) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -74,7 +73,7 @@ public class Article {
 		this.sellPrice = sellPrice;
 		this.category = category;
 		this.user = user;
-		this.auctionStatus = auctionStatus;
+		this.sellStatus  = sellStatus;
 	}
 
 	public Integer getId() {
@@ -149,20 +148,20 @@ public class Article {
 		this.user = user;
 	}
 
-	public AuctionStatus getAuctionStatus() {
-		return auctionStatus;
+	public SellStatus getSellStatus() {
+		return sellStatus;
 	}
 
-	public void setAuctionStatus(AuctionStatus auctionStatus) {
-		this.auctionStatus = auctionStatus;
+	public void setSellStatus (SellStatus sellStatus) {
+		this.sellStatus = sellStatus;
 	}
 
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", name=" + name + ", description=" + description + ", auctionStartDate="
 				+ auctionStartDate + ", auctionEndDate=" + auctionEndDate + ", initialPrice=" + initialPrice
-				+ ", sellPrice=" + sellPrice + ", category=" + category + ", user=" + user + ", auctionStatus="
-				+ auctionStatus + "]";
+				+ ", sellPrice=" + sellPrice + ", category=" + category + ", user=" + user + ", sellStatus="
+				+ sellStatus + "]";
 	}
 	
 }

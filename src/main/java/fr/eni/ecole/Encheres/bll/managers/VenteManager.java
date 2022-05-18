@@ -3,8 +3,6 @@ package fr.eni.ecole.Encheres.bll.managers;
 import java.time.LocalDate;
 import java.util.Map;
 
-import fr.eni.ecole.Encheres.modeles.bll.bo.AuctionStatus;
-
 public interface VenteManager {
 	//pour générer des messages d'erreur pour chaque contrôle effectué
 	Map<String, String> check(String name, String description, String categoryLabel, Integer initialPrice,

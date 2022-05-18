@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import fr.eni.ecole.Encheres.modeles.bll.bo.AuctionStatus;
-
 public class VenteManagerImpl implements VenteManager{
 
 	private static VenteManager instance = null;

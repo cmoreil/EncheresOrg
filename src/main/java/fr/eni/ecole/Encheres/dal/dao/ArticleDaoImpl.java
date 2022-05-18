@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.ecole.Encheres.modeles.bll.bo.Article;
-import fr.eni.ecole.Encheres.modeles.bll.bo.AuctionStatus;
+import fr.eni.ecole.Encheres.modeles.bll.bo.SellStatus;
 
 public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 
@@ -38,7 +40,7 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 			pstmt.setInt(6, article.getSellPrice());
 			pstmt.setInt(7, article.getUser().getId());
 			pstmt.setInt(8, article.getCategory().getId());
-			pstmt.setString(9, article.getAuctionStatus().name());
+			pstmt.setString(9, article.getSellStatus().name());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -86,9 +88,9 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 				article.setAuctionEndDate(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setInitialPrice(rs.getInt("prix_initial"));
 				article.setSellPrice(rs.getInt("prix_vente"));
-				//article.setCategory(rs.getInt("prix_vente"));
-				//article.setUser(rs.getInt("prix_vente"));
-				article.setAuctionStatus(AuctionStatus.valueOf(rs.getString("etat_vente")));
+				article.getUser().setId(rs.getInt("no_utilisateur"));
+				article.getCategory().setId(rs.getInt("no_categorie"));
+				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
 				
 			}
 		} catch (Exception e) {
@@ -96,5 +98,31 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 		}
 		return article;
 	}
+	
+	public List<Article> findAll() {
+		List<Article> articles = new ArrayList<>();
+		try (Connection con = PoolConnexion.getConnexion(database)) {
+			final String QUERY = "SELECT * FROM ARTICLES_VENDUS";
+			PreparedStatement pstmt = con.prepareStatement(QUERY);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Article article = new Article();
+				article.setId(rs.getInt("no_article"));
+				article.setName(rs.getString("nom_article"));
+				article.setDescription(rs.getString("description"));
+				article.setAuctionStartDate(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setAuctionEndDate(rs.getDate("date_fin_encheres").toLocalDate());
+				article.setInitialPrice(rs.getInt("prix_initial"));
+				article.setSellPrice(rs.getInt("prix_vente"));
+				article.getUser().setId(rs.getInt("no_utilisateur"));
+				article.getCategory().setId(rs.getInt("no_categorie"));
+				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
+				articles.add(article);
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+	}
 }

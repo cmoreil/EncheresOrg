@@ -7,10 +7,9 @@ import fr.eni.ecole.Encheres.modeles.bll.bo.User;
 public interface UserDao {
 
 	public User update(User utilisateurAModifier);
-
 	public User save(User user);
 	public User findByEmailAndMdp(String mail, String password);
-	void delete(User user);
+	public void deleteById(Integer idToRemove);
 	public List<User> findAll();
 	
 }

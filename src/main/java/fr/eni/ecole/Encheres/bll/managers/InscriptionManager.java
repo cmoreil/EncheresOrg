@@ -1,6 +1,5 @@
 package fr.eni.ecole.Encheres.bll.managers;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 public interface InscriptionManager {

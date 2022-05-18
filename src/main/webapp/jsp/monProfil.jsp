@@ -13,27 +13,31 @@
 	
 			<form action="monprofil" method="post"> 
 			<label for="username">Pseudo</label>
-			<input id="username" type="text"  name="username" value="${user.username}" /><span class="error">${errors.username}</span>
+			<input id="username" type="text"  name="username" value="${userConnected.username}" /><span class="error">${errors.username}</span>
 			<label for=name>Nom</label>
-			<input id="name" type="text"  name="name" value="${user.name}" />
+			<input id="name" type="text"  name="name" value="${userConnected.name}" />
 			<label for="firstname">Prénom</label> 
-			<input id="firstname" type="text" name="firstname" value="${user.firstname}" />
+			<input id="firstname" type="text" name="firstname" value="${userConnected.firstname}" />
 			<label for="email">Email</label> 
-			<input id="email" type="email" name="email" value="${user.email}" />			
+			<input id="email" type="email" name="email" value="${userConnected.email}" />			
 			<label for="phone">Téléphone</label>
-			<input id="phone" type="text"  name="phone" value="${user.phone}" />
+			<input id="phone" type="text"  name="phone" value="${userConnected.phone}" />
 			<label for="street">Rue</label>
-			<input id="street" type="text"  name="street" value="${user.street}" />		
+			<input id="street" type="text"  name="street" value="${userConnected.street}" />		
 			<label for="postalCode">Code postal</label>
-			<input id="postalCode" type="text"  name="postalCode" value="${user.postalCode}" />
+			<input id="postalCode" type="text"  name="postalCode" value="${userConnected.postalCode}" />
 			<label for="city">Ville</label>
-			<input id="city" type="text"  name="city" value="${user.city}" />		
+			<input id="city" type="text"  name="city" value="${userConnected.city}" />
 			<label for="password">Mot de passe</label> 
-			<input id="password" type="password" name="password" /> <span class="error">${errors.password}</span>
-
+			<input id="password" type="password" name="password" /> <span class="error">${errors.password}</span>	
+			<label for="confirmPassword">Confirmation</label> 
+			<input id="confirmPassword" type="password" name="confirmPassword" /> <span class="error">${errors.password}</span>
 			<input type="submit" value="Modifier" />
-			<!--  <input type="submit" value="Annuler" />-->
+			<p>${modificationOK}</p>
 		</form>
-	
+		<form action="" method="post">
+			<input type="hidden" name="id" value="${user.id}" /> 
+			<input type="submit" value="A supprimer" />
+		</form>
 </body>
 </html>

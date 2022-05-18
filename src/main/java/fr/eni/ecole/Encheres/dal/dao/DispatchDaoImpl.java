@@ -1,12 +1,8 @@
 package fr.eni.ecole.Encheres.dal.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
-import fr.eni.ecole.Encheres.modeles.bll.bo.Article;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Dispatch;
 
 public class DispatchDaoImpl extends AbstractDAO implements DispatchDao {

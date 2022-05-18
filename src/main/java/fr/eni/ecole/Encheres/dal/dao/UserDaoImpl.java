@@ -29,7 +29,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 	public User save(User user) {
 		int generatedKey = 0;
 		try (Connection con = PoolConnexion.getConnexion(database)) {
-			final String QUERY = "INSERT INTO Utilisateurs VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			final String QUERY = "INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUsername());
 			pstmt.setString(2, user.getName());
@@ -59,7 +59,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 	@Override
 	public User update(User utilisateurAModifier) {
 		try (Connection con = PoolConnexion.getConnexion(database)) {
-			final String QUERY = "UPDATE Utilisateurs SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
+			final String QUERY = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
 			PreparedStatement pstmt = con.prepareStatement(QUERY);
 			pstmt.setString(1, utilisateurAModifier.getUsername());
 			pstmt.setString(2, utilisateurAModifier.getName());
@@ -82,13 +82,12 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 	}
 
 	@Override
-	public void delete(User user) {
-		try (Connection con = PoolConnexion.getConnexion(database)) {
-			final String QUERY = "DELETE FROM Utilisateurs WHERE id = ?";
+	public void deleteById(Integer idToRemove) {
+		try (Connection con = PoolConnexion.getConnexion(database)){
+			final String QUERY = "DELETE FROM UTILISATEURS WHERE id = ?"; 
 			PreparedStatement pstmt = con.prepareStatement(QUERY);
-			pstmt.setInt(1, user.getId());
+			pstmt.setInt(1, idToRemove);
 			pstmt.executeUpdate();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,16 +96,13 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 	@Override
 	public User findByEmailAndMdp(String mail, String password) {
 		User user = new User();
-
 		try (Connection con = PoolConnexion.getConnexion(database)) {
 			final String QUERY = "SELECT * FROM UTILISATEURS WHERE email = ? and mot_de_passe = ?";
 			PreparedStatement pstmt = con.prepareStatement(QUERY);
 			pstmt.setString(1, mail);
 			pstmt.setString(2, password);
-
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-
 				user.setId(rs.getInt("no_utilisateur"));
 				user.setUsername(rs.getString("pseudo"));
 				user.setName(rs.getString("nom"));
@@ -124,7 +120,6 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return user;
 	}
 
@@ -132,24 +127,23 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 	public List<User> findAll() {
 		List<User> users = new ArrayList<>();
 		try (Connection con = PoolConnexion.getConnexion(database)) {
-		final String QUERY = "SELECT * FROM Utilisateurs";
+		final String QUERY = "SELECT * FROM UTILISATEURS";
 		PreparedStatement pstmt = con.prepareStatement(QUERY);
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
-		User user = new User();
-		user.setId(rs.getInt("no_utilisateur"));
-		user.setUsername(rs.getString("no_utilisateur"));
-		user.setName(rs.getString("no_utilisateur"));
-		user.setFirstname(rs.getString("no_utilisateur"));
-		user.setEmail(rs.getString("no_utilisateur"));
-		user.setPhone(rs.getString("no_utilisateur"));
-		user.setStreet(rs.getString("no_utilisateur"));
-		user.setPostalCode(rs.getString("no_utilisateur"));
-		user.setCity(rs.getString("no_utilisateur"));
-		user.setPassword(rs.getString("no_utilisateur"));
-		user.setCredit(rs.getInt("no_utilisateur"));
-		user.setRole(Role.valueOf(rs.getString("user_role")));
-		users.add(user);
+			User user = new User();
+			user.setId(rs.getInt("no_utilisateur"));
+			user.setUsername(rs.getString("pseudo"));
+			user.setName(rs.getString("nom"));
+			user.setFirstname(rs.getString("prenom"));
+			user.setEmail(rs.getString("email"));
+			user.setPhone(rs.getString("telephone"));
+			user.setStreet(rs.getString("rue"));
+			user.setPostalCode(rs.getString("code_postal"));
+			user.setCity(rs.getString("ville"));
+			user.setCredit(rs.getInt("credit"));
+			user.setRole(Role.valueOf(rs.getString("role")));
+			users.add(user);
 		}
 
 		} catch (Exception e) {
@@ -157,5 +151,4 @@ public class UserDaoImpl extends AbstractDAO implements UserDao {
 		}
 		return users;
 		}
-
 }

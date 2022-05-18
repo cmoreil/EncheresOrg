@@ -4,11 +4,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Map;
 
 import fr.eni.ecole.Encheres.dal.dao.DAOFactory;
 import fr.eni.ecole.Encheres.dal.dao.UserDao;
-import fr.eni.ecole.Encheres.modeles.bll.bo.Role;
 import fr.eni.ecole.Encheres.modeles.bll.bo.User;
 
 public class UserManagerImpl implements UserManager {
@@ -57,14 +55,9 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public Map<String, String> checkAccountModif(String username, String name, String firstname, String email,
-			String phone, String street, String postalCode, String city, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public User update(User utilisateurAModifier) {
+		String mdpcrypte2 = cryptedPsswd(utilisateurAModifier.getPassword());
+		utilisateurAModifier.setPassword(mdpcrypte2);
 		return userDao.update(utilisateurAModifier);
 	}
 

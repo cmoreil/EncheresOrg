@@ -29,9 +29,10 @@ public class VenteManagerImpl implements VenteManager{
 		SellsErrors.clear();
 		
 		String regex = "^[a-zA-Z|\s.?!,;]*$";
-		String regex2 = "^[a-zA-Z0-9_-|\s.?!,;]*$";
+		String regex2 = "^[a-zA-Z0-9_-|'|\s|.?!,;]*$";
 		Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 		Pattern pattern2 = Pattern.compile(regex2, Pattern.MULTILINE);
+		LocalDate now = LocalDate.now();
 		
 		//à compléter si temps avec des contrôles mieux étudiés
 		if (name.length() > 0 && description.length() > 0 && categoryLabel.length() > 0 && 
@@ -43,8 +44,14 @@ public class VenteManagerImpl implements VenteManager{
 			if (!pattern2.matcher(description).matches()) {
 				SellsErrors.put("description", "La description n'accepte que les caractères alphanumériques");
 			}
+			if (description.length() > 300) {
+				SellsErrors.put("desciption2", "La description ne doit pas excéder 300 caractères");
+			}
+			if(auctionStartDate.isBefore(now)) {
+				SellsErrors.put("date", "La date de début doit obligatoirement être égale ou supérieure à la date du jour");
+			}
 			if(auctionEndDate.isBefore(auctionStartDate)) {
-				SellsErrors.put("date", "La date de fin doit obligatoirement être supérieure à la date de début");
+				SellsErrors.put("date2", "La date de fin doit obligatoirement être supérieure à la date de début");
 			}
 			
 		} else {

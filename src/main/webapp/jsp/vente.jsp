@@ -16,7 +16,7 @@
 		<label for="name">Article :</label> 
 		<input id="name" type="text" name="name" /> <span class="error">${SellsErrors.name}</span>
 		<label for="description">Description :</label>
-		<textarea id="description" name="description" rows="20"></textarea> <span class="error">${SellsErrors.description}</span>
+		<textarea id="description" name="description" rows="20"></textarea> <span class="error">${SellsErrors.description}</span> <span class="error">${SellsErrors.description2}</span>
 		<label for="categoryLabel">Catégorie :</label> 
 		<select name="categoryLabel" id="categoryLabel">
 			<option value="informatique">Informatique</option>
@@ -28,9 +28,9 @@
 		<label for="initialPrice">Mise à prix</label> 
 		<input type="number" id="initialPrice" name="initialPrice" min="1"> 
 		<label for="auctionStartDate">Début de l'enchère </label> 
-		<input type="date" id="auctionStartDate" name="auctionStartDate" value="" min="2022-05-01">
+		<input type="date" id="auctionStartDate" name="auctionStartDate" value="" min="2022-05-01"><span class="error">${SellsErrors.date}</span>
 		<label for="auctionEndDate">Fin de l'enchère </label> 
-		<input type="date" id="auctionEndDate" name="auctionEndDate" value="" min="2022-05-01"> <span class="error">${SellsErrors.date}</span>
+		<input type="date" id="auctionEndDate" name="auctionEndDate" value="" min="2022-05-01"> <span class="error">${SellsErrors.date2}</span>
 		
 		 <fieldset>
 			  <legend>Retrait</legend>

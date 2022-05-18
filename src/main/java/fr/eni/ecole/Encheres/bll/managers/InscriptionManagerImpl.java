@@ -28,6 +28,8 @@ public class InscriptionManagerImpl implements InscriptionManager {
 		// pattern pour caracteres alpha, chiffres et _
 		String regex = "^[a-zA-Z0-9_]*$";
 		Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+		//faire idem pour tel et code postal
+		// a tester tel : ^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$
 
 		//à compléter si temps avec des contrôles suppl ?
 		if (username.length() > 0 && name.length() > 0 && firstname.length() > 0 && 

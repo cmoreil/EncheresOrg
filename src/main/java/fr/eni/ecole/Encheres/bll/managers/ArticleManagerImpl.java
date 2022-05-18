@@ -1,5 +1,7 @@
 package fr.eni.ecole.Encheres.bll.managers;
 
+import java.time.LocalDate;
+
 import fr.eni.ecole.Encheres.dal.dao.ArticleDao;
 import fr.eni.ecole.Encheres.dal.dao.DAOFactory;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Article;
@@ -22,8 +24,15 @@ public class ArticleManagerImpl implements ArticleManager {
 
 	@Override
 	public Article save(Article article) {
-		article.setSellPrice(article.getInitialPrice());		
-		article.setAuctionStatus(AuctionStatus.PENDING);
+		article.setSellPrice(article.getInitialPrice());	
+		
+		LocalDate now = LocalDate.now();
+		if(article.getAuctionStartDate().isBefore(now)) {
+			article.setAuctionStatus(AuctionStatus.PENDING);
+		}
+		else if(article.getAuctionStartDate().equals(now) || article.getAuctionStartDate().isAfter(now)) {
+			article.setAuctionStatus(AuctionStatus.OPEN);
+		}
 		return articleDao.save(article);
 	}
 

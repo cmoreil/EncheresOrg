@@ -2,6 +2,7 @@ package fr.eni.ecole.Encheres.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import fr.eni.ecole.Encheres.bll.managers.ArticleManager;
@@ -22,13 +23,15 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/connect/vente")
 public class VenteController extends HttpServlet {
 
-	CategoryManager categoryManager = ManagerFactory.getCategoryManager();
-	ArticleManager articleManager = ManagerFactory.getArticleManager();
-	DispatchManager dispatchManager = ManagerFactory.getDispatchManager();
-	VenteManager venteManager = ManagerFactory.getVenteManager();
+	private CategoryManager categoryManager = ManagerFactory.getCategoryManager();
+	private ArticleManager articleManager = ManagerFactory.getArticleManager();
+	private DispatchManager dispatchManager = ManagerFactory.getDispatchManager();
+	private VenteManager venteManager = ManagerFactory.getVenteManager();
+	private List<Category> categories;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		listerCategories(req);
 		this.getServletContext().getRequestDispatcher("/jsp/vente.jsp").forward(req, resp);
 	}
 
@@ -70,5 +73,10 @@ public class VenteController extends HttpServlet {
 			req.setAttribute("SellsErrors", SellsErrors);
 			this.getServletContext().getRequestDispatcher("/jsp/vente.jsp").forward(req, resp);
 		}
+	}
+	
+	private void listerCategories(HttpServletRequest req) {
+		categories = categoryManager.findAll();
+		req.setAttribute("categories", categories);
 	}
 }

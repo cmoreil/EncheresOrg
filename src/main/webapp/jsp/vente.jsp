@@ -19,10 +19,9 @@
 		<textarea id="description" name="description" rows="20"></textarea> <span class="error">${SellsErrors.description}</span> <span class="error">${SellsErrors.description2}</span>
 		<label for="categoryLabel">Catégorie :</label> 
 		<select name="categoryLabel" id="categoryLabel">
-			<option value="informatique">Informatique</option>
-			<option value="Ameublement">Ameublement</option>
-			<option value="Vetement">Vêtement</option>
-			<option value="Sport&loisirs">Sports et loisirs</option>
+			<c:forEach items="${ categories }" var="category" varStatus="status">
+				<option value="${ category.label }"> ${category.label}</option>
+			</c:forEach>
 		</select> 
 
 		<label for="initialPrice">Mise à prix</label> 

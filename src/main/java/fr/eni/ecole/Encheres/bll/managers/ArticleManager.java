@@ -10,4 +10,5 @@ public interface ArticleManager {
 	Article findById(Integer id);
 	Integer selectLastId();
 	List<Article> findAll();
+	void changeStatus(Article article);
 }

@@ -51,5 +51,11 @@ public class ArticleManagerImpl implements ArticleManager {
 	public List<Article> findAll() {
 		return articleDao.findAll();
 	}
+
+	@Override
+	public void changeStatus(Article article) {
+		// pour que mon script auto change le statut de non débutee à in progress
+		articleDao.update(article);
+	}
 	
 }

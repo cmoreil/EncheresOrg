@@ -22,6 +22,12 @@
 				</c:forEach>
 			</select>
 			
+<!-- test affichage foreach
+		<c:forEach items="${ articles }" var="article" varStatus="status">
+			<p> ${article.id}, ${article.name}: ${article.user.id} : ${article.user.name} ${article.category.id} : ${article.sellStatus}</p>
+		</c:forEach>
+-->
+		
 			<c:if test="${userConnected != null }">
 			<label for="achats">Achats</label>
 			<input type="radio" id="achats" name="achats" value="achats">

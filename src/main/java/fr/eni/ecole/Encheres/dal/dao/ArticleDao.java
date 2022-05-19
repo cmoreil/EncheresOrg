@@ -10,6 +10,6 @@ public interface ArticleDao {
 	Article findById(Integer id);
 	Integer selectLastId();
 	List<Article> findAll();
-	void update(Article article);
+	void changeStatus(Article article);
 
 }

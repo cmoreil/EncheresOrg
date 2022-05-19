@@ -55,7 +55,7 @@ public class ArticleManagerImpl implements ArticleManager {
 	@Override
 	public void changeStatus(Article article) {
 		// pour que mon script auto change le statut de non débutee à in progress
-		articleDao.update(article);
+		articleDao.changeStatus(article);
 	}
 	
 }

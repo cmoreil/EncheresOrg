@@ -4,7 +4,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import fr.eni.ecole.Encheres.bll.bo.SomeDailyJob;
+import fr.eni.ecole.Encheres.modeles.bll.bo.SomeDailyJob;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;

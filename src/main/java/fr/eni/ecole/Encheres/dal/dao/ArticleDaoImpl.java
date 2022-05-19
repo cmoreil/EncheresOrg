@@ -88,8 +88,10 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 				article.setAuctionEndDate(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setInitialPrice(rs.getInt("prix_initial"));
 				article.setSellPrice(rs.getInt("prix_vente"));
+				
 				article.getUser().setId(rs.getInt("no_utilisateur"));
 				article.getCategory().setId(rs.getInt("no_categorie"));
+				
 				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
 				
 			}
@@ -114,8 +116,10 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 				article.setAuctionEndDate(rs.getDate("date_fin_encheres").toLocalDate());
 				article.setInitialPrice(rs.getInt("prix_initial"));
 				article.setSellPrice(rs.getInt("prix_vente"));
-				//article.getUser().setId(rs.getInt("no_utilisateur"));
-				//article.getCategory().setId(rs.getInt("no_categorie"));
+				
+				article.getUser().setId(rs.getInt("no_utilisateur"));
+				article.getCategory().setId(rs.getInt("no_categorie"));
+				
 				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
 				articles.add(article);
 			}
@@ -127,7 +131,7 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 	}
 
 	@Override
-	public void update(Article article) {
+	public void changeStatus(Article article) {
 		try (Connection con = PoolConnexion.getConnexion(database)) {
 			final String QUERY = "UPDATE ARTICLES_VENDUS SET etat_vente = ? WHERE no_article = ?";
 			PreparedStatement pstmt = con.prepareStatement(QUERY);

@@ -6,6 +6,7 @@ import java.util.List;
 import fr.eni.ecole.Encheres.dal.dao.ArticleDao;
 import fr.eni.ecole.Encheres.dal.dao.DAOFactory;
 import fr.eni.ecole.Encheres.modeles.bll.bo.Article;
+import fr.eni.ecole.Encheres.modeles.bll.bo.Category;
 import fr.eni.ecole.Encheres.modeles.bll.bo.SellStatus;
 
 public class ArticleManagerImpl implements ArticleManager {
@@ -57,5 +58,20 @@ public class ArticleManagerImpl implements ArticleManager {
 		// pour que mon script auto change le statut de non débutee à in progress
 		articleDao.changeStatus(article);
 	}
-	
+
+	@Override
+	public List<Article> findAllInProgress() {
+		return articleDao.findAllInProgress();
+	}
+
+	@Override
+	public List<Article> findAllInProgressByCategory(Category category) {
+		return articleDao.findAllInProgressByCategory(category);
+	}
+
+	@Override
+	public List<Article> findAllInProgressByNameByCategory(String search, Category category) {
+		return articleDao.findAllInProgressByNameByCategory(search, category);
+	}
+
 }

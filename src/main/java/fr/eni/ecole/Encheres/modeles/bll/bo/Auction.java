@@ -22,6 +22,15 @@ public class Auction {
 		this.user = user;
 	}
 	
+	public Auction(LocalDate auctionDate, Integer amount, Article article, User user, AuctionStatus auctionStatus) {
+		super();
+		this.auctionDate = auctionDate;
+		this.amount = amount;
+		this.article = article;
+		this.user = user;
+		this.auctionStatus = auctionStatus;
+	}
+
 	public Auction(Integer auctionId, LocalDate auctionDate, Integer amount, Article article, User user) {
 		super();
 		this.auctionId = auctionId;

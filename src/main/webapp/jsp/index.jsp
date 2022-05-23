@@ -11,9 +11,8 @@
 	<h1>EniBay</h1>
 	<h2>Liste des enchères</h2>
 	
-	<form action="search" method="POST">
+	<form action="index" method="POST">
 		<input type="text" placeholder="Search.." name="search">
-		<button type="submit">Rechercher</button>
 		<label for="categoryLabel">Catégorie :</label> 
 			<select name="categoryLabel" id="categoryLabel">
 				<option value="toutes">TOUTES</option>
@@ -21,14 +20,9 @@
 					<option value="${ category.label }"> ${category.label}</option>
 				</c:forEach>
 			</select>
-			
-<!-- test affichage foreach
-		<c:forEach items="${ articles }" var="article" varStatus="status">
-			<p> ${article.id}, ${article.name}: ${article.user.id} : ${article.user.name} ${article.category.id} : ${article.sellStatus}</p>
-		</c:forEach>
--->
-		
-			<c:if test="${userConnected != null }">
+		<button type="submit">Rechercher</button>
+				
+		<c:if test="${userConnected != null }">
 			<label for="achats">Achats</label>
 			<input type="radio" id="achats" name="achats" value="achats">
 				<div>
@@ -50,10 +44,23 @@
 				 	<label for="finisched">ventes terminées</label>
 				 	<input type="checkbox" id="finisched" name="finisched" value="finisched">
 				 </div>
-			</c:if>
+		</c:if>
 	</form>
 	<!--en fonction de la recherche afficher le résultat -->
-	<!--par défaut toutes celles en "opened" -->
-
+	
+	<ol>
+		<c:forEach items="${ articles }" var="article" varStatus="status">
+			<li>
+				<input type="hidden" name="id" value="${article.id}" />
+				<a href="enchere" > ${article.name} </a>
+				<p> ${article.initialPrice} pts</p>
+				<p> ${article.auctionEndDate} </p>
+				<p> ${article.user.name} </p>
+			</li>
+		</c:forEach>
+	
+	<!--en fonction du résultat afficher les encheres -->
+		
+	</ol>
 </body>
 </html>

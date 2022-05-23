@@ -129,7 +129,6 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 			final String QUERY = "SELECT * FROM ARTICLES_VENDUS LEFT JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n"
 					+ "JOIN CATEGORIES ON CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie";
 			PreparedStatement pstmt = con.prepareStatement(QUERY);
-
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Article article = new Article();
@@ -188,16 +187,17 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 	}
 
 	@Override
-	public Article findByStatus(SellStatus sellStatus) {
-		Article article = new Article();
+	public List<Article>  findAllInProgress() {
+		List<Article> articles = new ArrayList<>();
 		try (Connection con = PoolConnexion.getConnexion(database)) {
 			final String QUERY = "SELECT * FROM ARTICLES_VENDUS JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n"
 					+ "JOIN CATEGORIES ON CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie\r\n"
 					+ "WHERE etat_vente = ?";
 			PreparedStatement pstmt = con.prepareStatement(QUERY);
-			pstmt.setString(1, sellStatus.name());
+			pstmt.setString(1, String.valueOf(SellStatus.IN_PROGRESS));
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
+				Article article = new Article();
 				article.setId(rs.getInt("no_article"));
 				article.setName(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));
@@ -228,10 +228,106 @@ public class ArticleDaoImpl extends AbstractDAO implements ArticleDao {
 				article.setCategory(category);
 
 				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
+				articles.add(article);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return article;
+		return articles;
+	}
+
+	@Override
+	public List<Article> findAllInProgressByCategory(Category category) {
+		List<Article> articles = new ArrayList<>();
+		try (Connection con = PoolConnexion.getConnexion(database)) {
+			final String QUERY = "SELECT * FROM ARTICLES_VENDUS JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n"
+					+ "JOIN CATEGORIES ON CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie\r\n"
+					+ "WHERE etat_vente = ? AND ARTICLES_VENDUS.no_categorie = ?";
+			PreparedStatement pstmt = con.prepareStatement(QUERY);
+			pstmt.setString(1, String.valueOf(SellStatus.IN_PROGRESS));
+			pstmt.setInt(2, category.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Article article = new Article();
+				article.setId(rs.getInt("no_article"));
+				article.setName(rs.getString("nom_article"));
+				article.setDescription(rs.getString("description"));
+				article.setAuctionStartDate(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setAuctionEndDate(rs.getDate("date_fin_encheres").toLocalDate());
+				article.setInitialPrice(rs.getInt("prix_initial"));
+				article.setSellPrice(rs.getInt("prix_vente"));
+
+				User user = new User();
+				user.setId(rs.getInt("no_utilisateur"));
+				user.setUsername(rs.getString("pseudo"));
+				user.setName(rs.getString("nom"));
+				user.setFirstname(rs.getString("prenom"));
+				user.setEmail(rs.getString("email"));
+				user.setPhone(rs.getString("telephone"));
+				user.setStreet(rs.getString("rue"));
+				user.setPostalCode(rs.getString("code_postal"));
+				user.setCity(rs.getString("ville"));
+				user.setPassword(rs.getString("mot_de_passe"));
+				user.setCredit(rs.getInt("credit"));
+				user.setRole(Role.valueOf(rs.getString("role")));
+
+				article.setUser(user);
+				article.setCategory(category);
+
+				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
+				articles.add(article);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+	}
+
+	@Override
+	public List<Article> findAllInProgressByNameByCategory(String search, Category category) {
+		List<Article> articles = new ArrayList<>();
+		try (Connection con = PoolConnexion.getConnexion(database)) {
+			final String QUERY = "SELECT * FROM ARTICLES_VENDUS JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur\r\n"
+					+ "JOIN CATEGORIES ON CATEGORIES.no_categorie = ARTICLES_VENDUS.no_categorie\r\n"
+					+ "WHERE etat_vente = ? AND UPPER(nom_article) LIKE UPPER(?) AND ARTICLES_VENDUS.no_categorie = ?";
+			PreparedStatement pstmt = con.prepareStatement(QUERY);
+			pstmt.setString(1, String.valueOf(SellStatus.IN_PROGRESS));
+			pstmt.setString(2, "%"+search+"%");
+			pstmt.setInt(3, category.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Article article = new Article();
+				article.setId(rs.getInt("no_article"));
+				article.setName(rs.getString("nom_article"));
+				article.setDescription(rs.getString("description"));
+				article.setAuctionStartDate(rs.getDate("date_debut_encheres").toLocalDate());
+				article.setAuctionEndDate(rs.getDate("date_fin_encheres").toLocalDate());
+				article.setInitialPrice(rs.getInt("prix_initial"));
+				article.setSellPrice(rs.getInt("prix_vente"));
+
+				User user = new User();
+				user.setId(rs.getInt("no_utilisateur"));
+				user.setUsername(rs.getString("pseudo"));
+				user.setName(rs.getString("nom"));
+				user.setFirstname(rs.getString("prenom"));
+				user.setEmail(rs.getString("email"));
+				user.setPhone(rs.getString("telephone"));
+				user.setStreet(rs.getString("rue"));
+				user.setPostalCode(rs.getString("code_postal"));
+				user.setCity(rs.getString("ville"));
+				user.setPassword(rs.getString("mot_de_passe"));
+				user.setCredit(rs.getInt("credit"));
+				user.setRole(Role.valueOf(rs.getString("role")));
+
+				article.setUser(user);
+				article.setCategory(category);
+
+				article.setSellStatus(SellStatus.valueOf(rs.getString("etat_vente")));
+				articles.add(article);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
 	}
 }

@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("urlPatterns = /connect/enchere")
+@WebServlet(urlPatterns = "/enchere")
 public class EnchereController extends HttpServlet{
 
 	@Override

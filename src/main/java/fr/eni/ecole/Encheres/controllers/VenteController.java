@@ -68,7 +68,7 @@ public class VenteController extends HttpServlet {
 		dispatchManager.save(dispatchCree);
 		req.setAttribute("dispatchCree", dispatchCree);
 		
-		this.getServletContext().getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+		resp.sendRedirect(req.getContextPath()+"/index");
 		} else {
 			req.setAttribute("SellsErrors", SellsErrors);
 			this.getServletContext().getRequestDispatcher("/jsp/vente.jsp").forward(req, resp);

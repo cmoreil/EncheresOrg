@@ -50,7 +50,7 @@ public class InscriptionController extends HttpServlet {
 				User userConnected = userManager.save(user);
 				req.getSession().setAttribute("userConnected", userConnected);
 				//revoir l'envoi vers index car la page d'accueil augmente une fois la co établie
-				this.getServletContext().getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+				resp.sendRedirect(req.getContextPath()+"/index");
 			}else {
 				req.setAttribute("unicité", "Ce pseudo et/ou cet email sont déjà pris");
 				this.getServletContext().getRequestDispatcher("/jsp/inscription.jsp").forward(req, resp);

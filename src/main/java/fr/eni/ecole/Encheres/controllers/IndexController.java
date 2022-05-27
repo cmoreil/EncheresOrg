@@ -44,7 +44,6 @@ public class IndexController extends HttpServlet {
 			articles = articleManager.findAllInProgress();
 		}else if (search == "" && !categoryLabel.equals("TOUTES")){
 				articles = articleManager.findAllInProgressByCategory(category);
-				System.out.println();
 		}else {
 			articles = articleManager.findAllInProgressByNameByCategory(search, category);
 		}

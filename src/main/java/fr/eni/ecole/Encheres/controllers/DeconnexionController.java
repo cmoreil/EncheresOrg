@@ -13,24 +13,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = "/connect/deconnexion")
-public class DeconnexionController extends HttpServlet{
-	
+public class DeconnexionController extends HttpServlet {
+
 	private CategoryManager categoryManager = ManagerFactory.getCategoryManager();
 	private List<Category> categories;
 
-protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		//suppression de la session
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		// suppression de la session
 		req.getSession().invalidate();
-		
+
 		listerCategories(req);
-		this.getServletContext()
-			.getRequestDispatcher("/jsp/index.jsp")
-			.forward(req, resp);
+		resp.sendRedirect(req.getContextPath() + "/index");
 	}
 
-private void listerCategories(HttpServletRequest req) {
-	categories = categoryManager.findAll();
-	req.setAttribute("categories", categories);
+	private void listerCategories(HttpServletRequest req) {
+		categories = categoryManager.findAll();
+		req.setAttribute("categories", categories);
 	}
 }

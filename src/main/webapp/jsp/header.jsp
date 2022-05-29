@@ -1,11 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <header>
-	<a href="index"><img alt="icone d'un marteau de tribunal" src="img/court_gavel.jpg"></a>
+	<a href="index"><img class="icon" alt="icone d'un marteau de tribunal" src="img/court_gavel.jpg"></a>
 	<ul>
 		<c:if test="${userConnected == null }">
-		<!-- remplacer le lien accueil par un logo clickable et bouton retour à home -->
-		<li><a href="${pageContext.request.contextPath}/index">Accueil</a></li>
 		<li><a href="${pageContext.request.contextPath}/inscription">Inscription</a></li>
 		<li><a href="${pageContext.request.contextPath}/connexion">Connexion</a></li>
 		</c:if>

@@ -28,6 +28,7 @@ public class ConnexionController extends HttpServlet {
 		String password = request.getParameter("password");
 
 		User userConnected = userManager.findByEmailAndMdp(mail, password);
+		System.out.println(userConnected.getId());
 		if (userConnected.getId() > 0) {
 			request.getSession().setAttribute("userConnected", userConnected);
 			response.sendRedirect(request.getContextPath()+"/index");
